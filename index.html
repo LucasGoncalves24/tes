@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<title>Página Mãe</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+		<h1>Página Mãe</h1>
+		<input type="text" id="campo-destino" placeholder="Valor selecionado aparecerá aqui">
+		<button id="btn-buscar">Buscar Item</button>
+		
+		<script>
+			$(document).ready(function () {
+				// Abre a janela de busca quando o botão é clicado
+				$('#btn-buscar').click(function () {
+					var win2 = window.open('http://localhost/novohtml.html', "Busca", "status=no,height=500,width=800");
+					
+				});
+			});
+		</script>
+	</body>
+</html>

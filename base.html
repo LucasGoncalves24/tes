@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<title>Página de Busca</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+		<h1>Escolha um Item</h1>
+		<ul id="lista-itens">
+			<li class="item" data-valor="Item 1">Item 1</li>
+			<li class="item" data-valor="Item 2">Item 2</li>
+			<li class="item" data-valor="Item 3">Item 3</li>
+		</ul>
+		
+		<script>
+			$(document).ready(function () {
+				// Quando um item da lista é clicado
+				$('.item').click(function () {
+					var valorSelecionado = $(this).data('valor'); // Pega o valor do item clicado
+					
+					// Verifica se a janela mãe existe
+					if (window.opener) {
+						// Insere o valor no campo de destino da página mãe
+						$(window.opener.document).find('#campo-destino').val(valorSelecionado);
+						
+						// Fecha a janela filha
+						window.close();
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
