@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-	<head>
-		<meta charset="UTF-8">
-		<title>Página de Busca</title>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	</head>
-	<body>
-		<h1>Escolha um Item</h1>
-		<ul id="lista-itens">
-			<li class="item" data-valor="Item 1">Item 1</li>
-			<li class="item" data-valor="Item 2">Item 2</li>
-			<li class="item" data-valor="Item 3">Item 3</li>
-		</ul>
-		
-		<script>
-			$(document).ready(function () {
-				// Quando um item da lista é clicado
-				$('.item').click(function () {
-					var valorSelecionado = $(this).data('valor'); // Pega o valor do item clicado
-					
-					// Verifica se a janela mãe existe
-					if (window.opener) {
-						// Insere o valor no campo de destino da página mãe
-						$(window.opener.document).find('#campo-destino').val(valorSelecionado);
-						
-						// Fecha a janela filha
-						window.close();
-					}
-				});
-			});
-		</script>
-	</body>
+<head>
+<meta charset="UTF-8">
+<title>Pesquisa de Produtos</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+// === Script que envia o resultado para a janela principal ===
+$(function(){
+    $(".selecao").click(function(){
+        var retIts = [];
+        $(this).find('td').each(function(){
+            retIts.push($(this).text());
+        });
+
+        for (var nX = 0; nX < retIts.length; nX++) {
+            var tmpOpn = opener.tmpRetSc[nX];
+            if (tmpOpn) {
+                var objRet = opener.document.getElementById(tmpOpn);
+                if (objRet) {
+                    objRet.value = retIts[nX];
+                }
+            }
+        }
+        self.close();
+    });
+});
+</script>
+
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 8px; border: 1px solid #ccc; }
+tr.selecao:hover { background: #e3f2fd; cursor: pointer; }
+</style>
+</head>
+
+<body>
+<h3>Selecione um produto</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Unidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="selecao"><td>1001</td><td>Parafuso M8x30</td><td>UN</td></tr>
+        <tr class="selecao"><td>1002</td><td>Arruela 1/4"</td><td>UN</td></tr>
+        <tr class="selecao"><td>1003</td><td>Chapa 3mm Inox</td><td>KG</td></tr>
+        <tr class="selecao"><td>1004</td><td>Óleo Hidráulico</td><td>L</td></tr>
+    </tbody>
+</table>
+</body>
 </html>
+
