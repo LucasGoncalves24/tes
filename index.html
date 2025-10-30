@@ -1,24 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-	<head>
-		<meta charset="UTF-8">
-		<title>Página Mãe</title>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	</head>
-	<body>
-		<h1>Página Mãe</h1>
-		<input type="text" id="campo-destino" placeholder="Valor selecionado aparecerá aqui">
-		<button id="btn-buscar">Buscar Item</button>
-		
-		<script>
-			$(document).ready(function () {
-				// Abre a janela de busca quando o botão é clicado
-				$('#btn-buscar').click(function () {
-					var win2 = window.open('https://lucasgoncalves24.github.io/tes/base', "Busca", "status=no,height=500,width=800");
-					
-				});
-			});
-		</script>
-	</body>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Requisição</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+// === Função principal de busca (a que você mostrou) ===
+function loadSearch(obj, modo, aut = null, filtro = false, view = true) {
+    if ($(obj).attr("destino") == undefined || $(obj).attr("destino") == "") return;
+
+    // Guarda os campos de retorno na janela principal
+    tmpRetSc = $(obj).attr("destino").split(",");
+    var tipo = $(obj).attr("search").trim();
+
+    if (modo == "click") {
+        var wWidth = $(window).width();
+        var wHeight = $(window).height();
+        var iMyWidth = wWidth * 0.6;
+        var iMyHeight = wHeight * 0.6;
+        var left = (wWidth - iMyWidth) / 2;
+        var top = (wHeight - iMyHeight) / 2;
+
+        // Abre o popup
+        var url = "popup-produtos.html?tipo=" + tipo;
+        var win2 = window.open(url, "PesquisaProduto",
+            "status=no,height=" + iMyHeight +
+            ",width=" + iMyWidth +
+            ",left=" + left +
+            ",top=" + top +
+            ",resizable=yes,toolbar=no,menubar=no,location=no"
+        );
+        win2.focus();
+    }
+}
+</script>
+
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px; border: 1px solid #ccc; }
+.fa-search { cursor: pointer; color: #007bff; }
+.fa-search:hover { color: #0056b3; }
+input[readonly] { background: #f0f0f0; }
+</style>
+</head>
+
+<body>
+<h2>Requisição de Almoxarifado</h2>
+
+<form id="Frm" method="post" action="/requisicao/cadastro-requisicao">
+    <table class="tbitens tb-fixed tb-hover tb-frmpad galeria">
+        <thead>
+            <tr>
+                <th>Código Produto *</th>
+                <th>Descrição Produto</th>
+                <th>Quantidade *</th>
+                <th>Unidade</th>
+            </tr>
+        </thead>
+        <tbody id="tb-itens">
+            <tr>
+                <td>
+                    <input type="text"
+                        id="z60-produt-0"
+                        name="Z60_PRODUT[0]"
+                        class="search"
+                        search="produtos_almoxarifado"
+                        destino="z60-produt-0,z60-desc-0,z60-um-0"
+                        placeholder="Código Produto"
+                        readonly
+                    />
+                    <span class="search" 
+                        search="produtos_almoxarifado"
+                        destino="z60-produt-0,z60-desc-0,z60-um-0"
+                        title="Pesquisar Produto"
+                        onclick="loadSearch(this, 'click')">
+                        🔍
+                    </span>
+                </td>
+                <td><input type="text" id="z60-desc-0" name="Z60_DESC[0]" readonly></td>
+                <td><input type="number" id="z60-qtdsol-0" name="Z60_QTDSOL[0]" min="1"></td>
+                <td><input type="text" id="z60-um-0" name="Z60_UM[0]" readonly></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <input type="submit" value="Confirmar Requisição">
+</form>
+</body>
 </html>
+
 
